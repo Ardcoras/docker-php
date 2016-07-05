@@ -14,7 +14,7 @@ $ docker build -t="avoltus/docker-php" .
 
 ```bash
 $ docker pull mariadb
-$ docker run --name mariadb -e MYSQL_ROOT_PASSWORD=mysqlPassword -d mariadb:latest
+$ docker run --name mariadb -e MYSQL_ROOT_PASSWORD=mysqlPassword -p 3307:3306 -d mariadb:latest
 $ docker pull schickling/mailcatcher
 $ docker run -d -p 1080:1080 --name mailcatcher schickling/mailcatcher
 # For instances supporting Solr 5
@@ -37,13 +37,13 @@ $ docker run --name redis -d redis
 
 ### Install the backend instance
 
-To spawn a new instance on port 8080 (HTTP) and 2222 (SSH for Drush).
+To spawn a new instance on port 8080 (HTTP) and 2220 (SSH for Drush).
 
 ```bash
-$ docker run -e PLATFORM=drupal -p 8080:80 -p 2222:22 --link mariadb:mysql --link redis:redis --link mailcatcher:mailcatcher --link solr:solr --name docker-php -v `pwd`/wwwroot:/wwwroot -d avoltus/docker-php
+$ docker run -e PLATFORM=drupal -p 8080:80 -p 2220:22 --link mariadb:mysql --link redis:redis --link mailcatcher:mailcatcher --link solr:solr --name docker-php -v `pwd`:/wwwroot -d avoltus/docker-php
 ```
 
-If you have selinux enabled (for example you're running Fedora), append ":Z" (without the quotes) to the command.
+If you have selinux enabled (for example you're running Fedora), append ":Z" (without the quotes) to the -v value.
 
 Currently available platforms are drupal, magento and livehelperchat.
 
