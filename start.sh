@@ -25,5 +25,7 @@ chown -Rf root:root /root/.ssh
 sed -i.bak 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 rm /etc/ssh/sshd_config.bak
 
+mkdir /run/php
+
 # start all the services
-/usr/local/bin/supervisord -n
+supervisord -n
